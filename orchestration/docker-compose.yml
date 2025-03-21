@@ -1,0 +1,67 @@
+version: "3.8"
+volumes:
+  carpark-data:
+    driver: local
+  kestra-data:
+    driver: local
+
+services:
+  postgres_kestra:
+    image: postgres
+    container_name: kestra-postgres
+    environment:
+      POSTGRES_USER: kestra
+      POSTGRES_PASSWORD: k3str4
+      POSTGRES_DB: carpark-kestra
+    ports:
+      - "5433:5432"
+    volumes:
+      - carpark-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kestra -d carpark-kestra"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  kestra:
+    image: kestra/kestra:latest
+    container_name: kestra
+    pull_policy: always
+    user: "root"
+    command: server standalone
+    volumes:
+      - kestra-data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/kestra-wd:/tmp/kestra-wd
+    environment:
+      KESTRA_CONFIGURATION: |
+        datasources:
+          postgres:
+            url: jdbc:postgresql://postgres_kestra:5432/carpark-kestra
+            driverClassName: org.postgresql.Driver
+            username: kestra
+            password: k3str4
+        kestra:
+          server:
+            basicAuth:
+              enabled: false
+              username: "admin@kestra.io"
+              password: kestra
+          repository:
+            type: postgres
+          storage:
+            type: local
+            local:
+              basePath: "/app/storage"
+          queue:
+            type: postgres
+          tasks:
+            tmpDir:
+              path: /tmp/kestra-wd/tmp
+          url: http://localhost:8082/
+    ports:
+      - "8082:8080"
+      - "8083:8081"
+    depends_on:
+      postgres_kestra:
+        condition: service_healthy
