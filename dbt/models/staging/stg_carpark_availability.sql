@@ -26,7 +26,13 @@ select
     -- Parking lot information
     AvailableLots,
     LotType,
-    {{ get_lot_type_description('LotType') }} as lot_type_description,
+    case safe_cast(LotType as string)  
+        when 'C' then 'Car'
+        when 'H' then 'Heavy Vehicle'
+        when 'M' then 'Motorcycle'
+        when 'Y' then 'Motorcycle'
+        else 'Unknown'
+    end as lot_type_description,
     Agency,
     
     -- Time-related
