@@ -184,8 +184,9 @@ class LTAApiHandler:
         
         try:
             # Create Kafka producer
+            # 将Kafka连接配置改为GCE VM的IP地址和端口
             producer = KafkaProducer(
-                bootstrap_servers=['localhost:9092'],
+                bootstrap_servers=['34.126.86.205:9093'],  # 使用您VM的实际外部IP
                 value_serializer=lambda x: json.dumps(x).encode('utf-8')
             )
             
@@ -207,33 +208,35 @@ class LTAApiHandler:
             self.logger.error(error_msg)
             raise RuntimeError(error_msg)
 
+# 在api_client.py的main函数中添加循环
 def main():
-    """Main function to retrieve and save carpark data"""
-    try:
-        # Create API handler
-        api_handler = LTAApiHandler()
-        
-        # Get carpark data
-        carpark_data = api_handler.get_carpark_availability()
-        
-        # Save data locally
-        if carpark_data:
-            api_handler.save_to_local(carpark_data)
+    while True:
+        try:
+            # 创建API处理程序
+            api_handler = LTAApiHandler()
             
-            # Send data to kafka
-            try:
-                api_handler.send_to_kafka(carpark_data)
-                print(f"Successfully processed, saved, and sent {len(carpark_data)} records to Kafka")
-            except Exception as e:
-                 print(f"Saved data locally but failed to send to Kafka: {str(e)}")
-        else:
-            print("No data received")
+            # 获取停车场数据
+            carpark_data = api_handler.get_carpark_availability()
             
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        return 1
-    
-    return 0
+            # 数据处理和发送到Kafka
+            if carpark_data:
+                api_handler.save_to_local(carpark_data)
+                try:
+                    api_handler.send_to_kafka(carpark_data)
+                    print(f"Successfully processed, saved, and sent {len(carpark_data)} records to Kafka")
+                except Exception as e:
+                    print(f"Saved data locally but failed to send to Kafka: {str(e)}")
+            else:
+                print("No data received")
+                
+            # 等待5分钟后再次获取数据
+            print("Waiting 5 minutes before next data fetch...")
+            time.sleep(300)  # 5分钟 = 300秒
+                
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            # 发生错误时等待1分钟后重试
+            time.sleep(60)
 
 
 if __name__ == "__main__":
