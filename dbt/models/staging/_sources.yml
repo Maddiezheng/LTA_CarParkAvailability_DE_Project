@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ env_var('DBT_DATABASE', 'lta-caravailability') }}"
+    schema: "{{ env_var('DBT_SCHEMA', 'carpark_raw') }}"
+    tables:
+      - name: carpark_availability
+        description: "Raw carpark availability data from LTA API"
+        columns:
+          - name: timestamp
+            description: "Timestamp when data was collected"
+          - name: CarParkID
+            description: "Unique identifier for the carpark"
+          - name: Area
+            description: "Area where the carpark is located"
+          - name: Development
+            description: "Development or building name"
+          - name: Location
+            description: "Location coordinates as string"
+          - name: Latitude
+            description: "Latitude coordinate"
+          - name: Longitude
+            description: "Longitude coordinate"
+          - name: AvailableLots
+            description: "Number of available parking lots"
+          - name: LotType
+            description: "Type of parking lot (C=Car, M=Motorcycle, H=Heavy)"
+          - name: Agency
+            description: "Agency responsible for the carpark"

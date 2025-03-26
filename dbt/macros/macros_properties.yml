@@ -1,0 +1,12 @@
+version: 2
+
+macros:
+  - name: get_lot_type_description
+    description: >
+      This macro receives a lot_type and returns the corresponding description.
+    arguments:
+      - name: lot_type
+        type: string
+        description: > 
+          lot_type value.
+          Must be one of the accepted values ['C', 'H', 'M'], otherwise the macro will return 'Unknown'.
