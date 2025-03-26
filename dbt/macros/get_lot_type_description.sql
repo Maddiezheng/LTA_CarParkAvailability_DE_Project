@@ -6,6 +6,7 @@
         when 'C' then 'Car'
         when 'H' then 'Heavy Vehicle'
         when 'M' then 'Motorcycle'
+        when 'Y' then 'Motorcycle'
         else 'Unknown'
     end
 {%- endmacro %}
