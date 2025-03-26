@@ -1,0 +1,47 @@
+name: 'lta_carpark'
+version: '1.0.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  lta_carpark:
+    # Configuration of the original data layer
+    staging:
+      +materialized: view
+    # Configure core data layer
+    core:
+      +materialized: table
+    # Configure dimension and fact table
+    marts:
+      +materialized: table
+      dim:
+        +materialized: table
+      fact:
+        +materialized: table
+        +partition_by:
+          field: event_date
+          data_type: date
+          granularity: day
+    # Configure report layer
+    reporting:
+      +materialized: table
+      +partition_by:
+        field: event_date
+        data_type: date
+        granularity: day
+
+vars:
+  lot_type_values: ['C', 'H', 'M']
