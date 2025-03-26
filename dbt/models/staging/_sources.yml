@@ -25,6 +25,10 @@ sources:
           - name: AvailableLots
             description: "Number of available parking lots"
           - name: LotType
-            description: "Type of parking lot (C=Car, M=Motorcycle, H=Heavy)"
+            description: "Type of parking lot (C=Car, Y=Motorcycle, H=Heavy)"
           - name: Agency
             description: "Agency responsible for the carpark"
+          - name: ingestion_time
+            description: "Time when data was ingested"
+          - name: processing_time
+            description: "Time when data was processed"

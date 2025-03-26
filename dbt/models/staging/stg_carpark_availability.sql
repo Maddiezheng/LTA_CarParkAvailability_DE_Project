@@ -19,20 +19,25 @@ select
     -- Location information
     Area,
     Development,
-    cast(Latitude as numeric) as Latitude,
-    cast(Longitude as numeric) as Longitude,
+    Location,
+    Latitude,
+    Longitude,
     
     -- Parking lot information
-    cast(AvailableLots as integer) as AvailableLots,
+    AvailableLots,
     LotType,
     {{ get_lot_type_description('LotType') }} as lot_type_description,
     Agency,
     
     -- Time-related
-    cast(timestamp as timestamp) as event_time,
+    timestamp as event_time,
     cast(extract(date from timestamp) as date) as event_date,
     extract(hour from timestamp) as hour_of_day,
     extract(dayofweek from timestamp) as day_of_week,
+    
+    -- Processing time-related
+    ingestion_time,
+    processing_time,
     
     -- Additional Information
     case
