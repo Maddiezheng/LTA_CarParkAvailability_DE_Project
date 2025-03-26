@@ -11,6 +11,8 @@ services:
       - "./carpark_postgres_data:/var/lib/postgresql/data:rw"
     ports:
       - "5432:5432"
+    networks:
+      - carpark-network
   
   pgadmin:
     image: dpage/pgadmin4
@@ -20,3 +22,9 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - "8080:80"
+    networks:
+      - carpark-network
+  
+networks:
+  carpark-network:
+    external: true

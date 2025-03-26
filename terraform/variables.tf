@@ -1,12 +1,12 @@
 variable "credentials" {
     description = "GCP Credentials"
-    default = "./keys/credentials.json"
+    default = "./keys/lta-caravailability-a3190b400d81.json"
 }
 
 variable "project" {
     description = "GCP Project ID"
     # 替换成你的项目ID
-    default = "your-project-id"
+    default = "lta-caravailability"
 }
 
 variable "region" {
@@ -32,11 +32,26 @@ variable "processed_dataset_name" {
 
 variable "gcs_bucket_name" {
     description = "Data Lake Bucket Name"
-    # 替换成你想要的桶名
-    default = "your-project-id-carpark-data"
+    # bucket name
+    default = "lta-carpark"
 }
 
 variable "gcs_storage_class" {
     description = "Bucket Storage Class"
     default = "STANDARD"
+}
+
+variable "dataproc_cluster_name" {
+  description = "Dataproc Cluster Name"
+  default     = "carpark-flink-cluster"
+}
+
+variable "dataproc_machine_type" {
+  description = "Machine type for Dataproc cluster nodes"
+  default     = "n1-standard-2"
+}
+
+variable "dataproc_image_version" {
+  description = "Dataproc image version"
+  default     = "2.1-debian10"
 }

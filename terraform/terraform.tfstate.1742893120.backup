@@ -1,0 +1,516 @@
+{
+  "version": 4,
+  "terraform_version": "1.10.5",
+  "serial": 33,
+  "lineage": "0dbcead5-0f0c-be90-f45f-5246f00420c5",
+  "outputs": {
+    "bucket_name": {
+      "value": "lta-carpark",
+      "type": "string"
+    },
+    "dataflow_job_file": {
+      "value": "jobs/kafka_to_gcs_pipeline.py",
+      "type": "string"
+    },
+    "processed_dataset": {
+      "value": "carpark_processed",
+      "type": "string"
+    },
+    "raw_dataset": {
+      "value": "carpark_raw",
+      "type": "string"
+    },
+    "staging_location": {
+      "value": "lta-carpark/staging",
+      "type": "string"
+    },
+    "temp_location": {
+      "value": "lta-carpark/temp",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "google_bigquery_dataset",
+      "name": "processed_dataset",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access": [
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "OWNER",
+                "routine": [],
+                "special_group": "",
+                "user_by_email": "terraform-admin@lta-caravailability.iam.gserviceaccount.com",
+                "view": []
+              },
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "OWNER",
+                "routine": [],
+                "special_group": "projectOwners",
+                "user_by_email": "",
+                "view": []
+              },
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "READER",
+                "routine": [],
+                "special_group": "projectReaders",
+                "user_by_email": "",
+                "view": []
+              },
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "WRITER",
+                "routine": [],
+                "special_group": "projectWriters",
+                "user_by_email": "",
+                "view": []
+              }
+            ],
+            "creation_time": 1742708478326,
+            "dataset_id": "carpark_processed",
+            "default_collation": "",
+            "default_encryption_configuration": [],
+            "default_partition_expiration_ms": 0,
+            "default_table_expiration_ms": 0,
+            "delete_contents_on_destroy": false,
+            "description": "",
+            "effective_labels": {
+              "goog-terraform-provisioned": "true"
+            },
+            "etag": "XiwgFmuUTSOvGa4tQQU0lg==",
+            "external_dataset_reference": [],
+            "friendly_name": "",
+            "id": "projects/lta-caravailability/datasets/carpark_processed",
+            "is_case_insensitive": false,
+            "labels": {},
+            "last_modified_time": 1742708478326,
+            "location": "asia-southeast1",
+            "max_time_travel_hours": "168",
+            "project": "lta-caravailability",
+            "resource_tags": {},
+            "self_link": "https://bigquery.googleapis.com/bigquery/v2/projects/lta-caravailability/datasets/carpark_processed",
+            "storage_billing_model": "",
+            "terraform_labels": {
+              "goog-terraform-provisioned": "true"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_bigquery_dataset",
+      "name": "raw_dataset",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "access": [
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "OWNER",
+                "routine": [],
+                "special_group": "",
+                "user_by_email": "terraform-admin@lta-caravailability.iam.gserviceaccount.com",
+                "view": []
+              },
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "OWNER",
+                "routine": [],
+                "special_group": "projectOwners",
+                "user_by_email": "",
+                "view": []
+              },
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "READER",
+                "routine": [],
+                "special_group": "projectReaders",
+                "user_by_email": "",
+                "view": []
+              },
+              {
+                "condition": [],
+                "dataset": [],
+                "domain": "",
+                "group_by_email": "",
+                "iam_member": "",
+                "role": "WRITER",
+                "routine": [],
+                "special_group": "projectWriters",
+                "user_by_email": "",
+                "view": []
+              }
+            ],
+            "creation_time": 1742708478326,
+            "dataset_id": "carpark_raw",
+            "default_collation": "",
+            "default_encryption_configuration": [],
+            "default_partition_expiration_ms": 0,
+            "default_table_expiration_ms": 0,
+            "delete_contents_on_destroy": false,
+            "description": "",
+            "effective_labels": {
+              "goog-terraform-provisioned": "true"
+            },
+            "etag": "lzYOqiFD6v6zJeQAo611XA==",
+            "external_dataset_reference": [],
+            "friendly_name": "",
+            "id": "projects/lta-caravailability/datasets/carpark_raw",
+            "is_case_insensitive": false,
+            "labels": {},
+            "last_modified_time": 1742708478326,
+            "location": "asia-southeast1",
+            "max_time_travel_hours": "168",
+            "project": "lta-caravailability",
+            "resource_tags": {},
+            "self_link": "https://bigquery.googleapis.com/bigquery/v2/projects/lta-caravailability/datasets/carpark_raw",
+            "storage_billing_model": "",
+            "terraform_labels": {
+              "goog-terraform-provisioned": "true"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_bigquery_table",
+      "name": "carpark_availability_table",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "biglake_configuration": [],
+            "clustering": null,
+            "creation_time": 1742708481771,
+            "dataset_id": "carpark_raw",
+            "deletion_protection": true,
+            "description": "",
+            "effective_labels": {
+              "goog-terraform-provisioned": "true"
+            },
+            "encryption_configuration": [],
+            "etag": "U0E3TQf1iCEU/OR1y2XK7g==",
+            "expiration_time": 0,
+            "external_data_configuration": [],
+            "friendly_name": "",
+            "id": "projects/lta-caravailability/datasets/carpark_raw/tables/carpark_availability",
+            "labels": {},
+            "last_modified_time": 1742708481817,
+            "location": "asia-southeast1",
+            "materialized_view": [],
+            "max_staleness": "",
+            "num_bytes": 0,
+            "num_long_term_bytes": 0,
+            "num_rows": 0,
+            "project": "lta-caravailability",
+            "range_partitioning": [],
+            "require_partition_filter": false,
+            "resource_tags": {},
+            "schema": "[{\"mode\":\"REQUIRED\",\"name\":\"timestamp\",\"type\":\"TIMESTAMP\"},{\"mode\":\"REQUIRED\",\"name\":\"CarParkID\",\"type\":\"STRING\"},{\"mode\":\"NULLABLE\",\"name\":\"Area\",\"type\":\"STRING\"},{\"mode\":\"NULLABLE\",\"name\":\"Development\",\"type\":\"STRING\"},{\"mode\":\"NULLABLE\",\"name\":\"Location\",\"type\":\"STRING\"},{\"mode\":\"NULLABLE\",\"name\":\"Latitude\",\"type\":\"FLOAT\"},{\"mode\":\"NULLABLE\",\"name\":\"Longitude\",\"type\":\"FLOAT\"},{\"mode\":\"NULLABLE\",\"name\":\"AvailableLots\",\"type\":\"INTEGER\"},{\"mode\":\"NULLABLE\",\"name\":\"LotType\",\"type\":\"STRING\"},{\"mode\":\"NULLABLE\",\"name\":\"Agency\",\"type\":\"STRING\"},{\"mode\":\"REQUIRED\",\"name\":\"ingestion_time\",\"type\":\"TIMESTAMP\"}]",
+            "self_link": "https://bigquery.googleapis.com/bigquery/v2/projects/lta-caravailability/datasets/carpark_raw/tables/carpark_availability",
+            "table_constraints": [],
+            "table_id": "carpark_availability",
+            "table_replication_info": [],
+            "terraform_labels": {
+              "goog-terraform-provisioned": "true"
+            },
+            "time_partitioning": [
+              {
+                "expiration_ms": 0,
+                "field": "timestamp",
+                "require_partition_filter": false,
+                "type": "DAY"
+              }
+            ],
+            "type": "TABLE",
+            "view": []
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "google_bigquery_dataset.raw_dataset"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "carpark_bucket",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 3,
+          "attributes": {
+            "autoclass": [],
+            "cors": [],
+            "custom_placement_config": [],
+            "default_event_based_hold": false,
+            "effective_labels": {},
+            "enable_object_retention": false,
+            "encryption": [],
+            "force_destroy": true,
+            "hierarchical_namespace": [
+              {
+                "enabled": false
+              }
+            ],
+            "id": "lta-carpark",
+            "labels": {},
+            "lifecycle_rule": [
+              {
+                "action": [
+                  {
+                    "storage_class": "",
+                    "type": "AbortIncompleteMultipartUpload"
+                  }
+                ],
+                "condition": [
+                  {
+                    "age": 30,
+                    "created_before": "",
+                    "custom_time_before": "",
+                    "days_since_custom_time": 0,
+                    "days_since_noncurrent_time": 0,
+                    "matches_prefix": [],
+                    "matches_storage_class": [],
+                    "matches_suffix": [],
+                    "noncurrent_time_before": "",
+                    "num_newer_versions": 0,
+                    "send_age_if_zero": false,
+                    "send_days_since_custom_time_if_zero": false,
+                    "send_days_since_noncurrent_time_if_zero": false,
+                    "send_num_newer_versions_if_zero": false,
+                    "with_state": "ANY"
+                  }
+                ]
+              }
+            ],
+            "location": "ASIA-SOUTHEAST1",
+            "logging": [],
+            "name": "lta-carpark",
+            "project": "lta-caravailability",
+            "project_number": 1692270836,
+            "public_access_prevention": "enforced",
+            "requester_pays": false,
+            "retention_policy": [],
+            "rpo": null,
+            "self_link": "https://www.googleapis.com/storage/v1/b/lta-carpark",
+            "soft_delete_policy": [
+              {
+                "effective_time": "2025-03-23T05:23:36.652Z",
+                "retention_duration_seconds": 604800
+              }
+            ],
+            "storage_class": "STANDARD",
+            "terraform_labels": {},
+            "timeouts": null,
+            "uniform_bucket_level_access": true,
+            "url": "gs://lta-carpark",
+            "versioning": [],
+            "website": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsInJlYWQiOjI0MDAwMDAwMDAwMCwidXBkYXRlIjoyNDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjMifQ=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_storage_bucket_object",
+      "name": "dataflow_job_file",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "lta-carpark",
+            "cache_control": "",
+            "content": null,
+            "content_disposition": "",
+            "content_encoding": "",
+            "content_language": "",
+            "content_type": "text/plain; charset=utf-8",
+            "crc32c": "0LqG4w==",
+            "customer_encryption": [],
+            "detect_md5hash": "qyGenQ77LdpPNggPv/Hqsg==",
+            "event_based_hold": false,
+            "generation": 1742890626389924,
+            "id": "lta-carpark-jobs/kafka_to_gcs_pipeline.py",
+            "kms_key_name": "",
+            "md5hash": "qyGenQ77LdpPNggPv/Hqsg==",
+            "media_link": "https://storage.googleapis.com/download/storage/v1/b/lta-carpark/o/jobs%2Fkafka_to_gcs_pipeline.py?generation=1742890626389924\u0026alt=media",
+            "metadata": {},
+            "name": "jobs/kafka_to_gcs_pipeline.py",
+            "output_name": "jobs/kafka_to_gcs_pipeline.py",
+            "retention": [],
+            "self_link": "https://www.googleapis.com/storage/v1/b/lta-carpark/o/jobs%2Fkafka_to_gcs_pipeline.py",
+            "source": "../processing/dataflow/kafka_to_gcs_pipeline.py",
+            "storage_class": "STANDARD",
+            "temporary_hold": false,
+            "timeouts": null
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "content"
+              }
+            ]
+          ],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAsImRlbGV0ZSI6MjQwMDAwMDAwMDAwLCJ1cGRhdGUiOjI0MDAwMDAwMDAwMH19",
+          "dependencies": [
+            "google_storage_bucket.carpark_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_storage_bucket_object",
+      "name": "dataflow_staging_folder",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "lta-carpark",
+            "cache_control": "",
+            "content": "staging folder for dataflow",
+            "content_disposition": "",
+            "content_encoding": "",
+            "content_language": "",
+            "content_type": "text/plain; charset=utf-8",
+            "crc32c": "k5MysA==",
+            "customer_encryption": [],
+            "detect_md5hash": "W7IFMq526nEkhZ7RfQcFeg==",
+            "event_based_hold": false,
+            "generation": 1742890626388785,
+            "id": "lta-carpark-staging/",
+            "kms_key_name": "",
+            "md5hash": "W7IFMq526nEkhZ7RfQcFeg==",
+            "media_link": "https://storage.googleapis.com/download/storage/v1/b/lta-carpark/o/staging%2F?generation=1742890626388785\u0026alt=media",
+            "metadata": {},
+            "name": "staging/",
+            "output_name": "staging/",
+            "retention": [],
+            "self_link": "https://www.googleapis.com/storage/v1/b/lta-carpark/o/staging%2F",
+            "source": null,
+            "storage_class": "STANDARD",
+            "temporary_hold": false,
+            "timeouts": null
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "content"
+              }
+            ]
+          ],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAsImRlbGV0ZSI6MjQwMDAwMDAwMDAwLCJ1cGRhdGUiOjI0MDAwMDAwMDAwMH19",
+          "dependencies": [
+            "google_storage_bucket.carpark_bucket"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_storage_bucket_object",
+      "name": "dataflow_temp_folder",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "lta-carpark",
+            "cache_control": "",
+            "content": "temp folder for dataflow",
+            "content_disposition": "",
+            "content_encoding": "",
+            "content_language": "",
+            "content_type": "text/plain; charset=utf-8",
+            "crc32c": "Ow2qhg==",
+            "customer_encryption": [],
+            "detect_md5hash": "YLnn7LLbdYW9a6oa/bWXNQ==",
+            "event_based_hold": false,
+            "generation": 1742890626393449,
+            "id": "lta-carpark-temp/",
+            "kms_key_name": "",
+            "md5hash": "YLnn7LLbdYW9a6oa/bWXNQ==",
+            "media_link": "https://storage.googleapis.com/download/storage/v1/b/lta-carpark/o/temp%2F?generation=1742890626393449\u0026alt=media",
+            "metadata": {},
+            "name": "temp/",
+            "output_name": "temp/",
+            "retention": [],
+            "self_link": "https://www.googleapis.com/storage/v1/b/lta-carpark/o/temp%2F",
+            "source": null,
+            "storage_class": "STANDARD",
+            "temporary_hold": false,
+            "timeouts": null
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "content"
+              }
+            ]
+          ],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAsImRlbGV0ZSI6MjQwMDAwMDAwMDAwLCJ1cGRhdGUiOjI0MDAwMDAwMDAwMH19",
+          "dependencies": [
+            "google_storage_bucket.carpark_bucket"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

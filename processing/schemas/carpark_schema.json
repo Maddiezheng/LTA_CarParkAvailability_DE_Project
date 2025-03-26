@@ -1,0 +1,16 @@
+{
+    "BigQuery Schema": [
+      {"name": "timestamp", "type": "TIMESTAMP", "mode": "REQUIRED"},
+      {"name": "CarParkID", "type": "STRING", "mode": "REQUIRED"},
+      {"name": "Area", "type": "STRING", "mode": "NULLABLE"},
+      {"name": "Development", "type": "STRING", "mode": "NULLABLE"},
+      {"name": "Location", "type": "STRING", "mode": "NULLABLE"},
+      {"name": "Latitude", "type": "FLOAT", "mode": "NULLABLE"},
+      {"name": "Longitude", "type": "FLOAT", "mode": "NULLABLE"},
+      {"name": "AvailableLots", "type": "INTEGER", "mode": "NULLABLE"},
+      {"name": "LotType", "type": "STRING", "mode": "NULLABLE"},
+      {"name": "Agency", "type": "STRING", "mode": "NULLABLE"},
+      {"name": "ingestion_time", "type": "TIMESTAMP", "mode": "REQUIRED"},
+      {"name": "processing_time", "type": "TIMESTAMP", "mode": "REQUIRED"}
+    ]
+  }
