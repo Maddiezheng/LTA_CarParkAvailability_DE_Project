@@ -20,7 +20,7 @@ carpark_ranks AS (
     RANK() OVER (PARTITION BY hour_of_day ORDER BY avg_available_lots) as rank_by_availability
   FROM daily_patterns d
   JOIN {{ ref('dim_carparks') }} cp ON d.CarParkID = cp.CarParkID
-  WHERE data_points > 10
+  WHERE data_points > 5  
 )
 
 -- Find the busiest parking lot every hour.
