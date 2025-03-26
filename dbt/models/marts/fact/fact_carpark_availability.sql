@@ -1,11 +1,6 @@
 {{
     config(
-        materialized='table',
-        partition_by={
-            "field": "event_date",
-            "data_type": "date",
-            "granularity": "day"
-        }
+        materialized='table'
     )
 }}
 
@@ -18,5 +13,8 @@ SELECT
     day_of_week,
     AvailableLots,
     LotType,
-    time_category
+    lot_type_description,
+    time_category,
+    ingestion_time,
+    processing_time
 FROM {{ ref('stg_carpark_availability') }}
