@@ -24,7 +24,8 @@ select
   Longitude,
 
   -- Parking lot information
-  AvailableLots,
+  -- Handle negative values by setting a minimum of 0
+  GREATEST(AvailableLots, 0) as AvailableLots,
   LotType,
   case safe_cast(LotType as string)
     when 'C' then 'Car'
@@ -35,9 +36,11 @@ select
   end as lot_type_description,
   Agency,
 
-  -- Time-related (Singapore Time UTC+8)
+  -- Time-related (keeping original UTC time)
   timestamp as event_time,
-  CAST(DATE(TIMESTAMP_ADD(timestamp, INTERVAL 8 HOUR)) AS DATE) as event_date,
+  
+  -- Calculate Singapore time (UTC+8)
+  DATE(TIMESTAMP_ADD(timestamp, INTERVAL 8 HOUR)) as event_date,
   EXTRACT(HOUR FROM TIMESTAMP_ADD(timestamp, INTERVAL 8 HOUR)) as hour_of_day,
   EXTRACT(DAYOFWEEK FROM TIMESTAMP_ADD(timestamp, INTERVAL 8 HOUR)) as day_of_week,
 
@@ -45,7 +48,7 @@ select
   ingestion_time,
   processing_time,
 
-  -- Additional Information
+  -- Additional Information with corrected time
   case
     when EXTRACT(HOUR FROM TIMESTAMP_ADD(timestamp, INTERVAL 8 HOUR)) between 7 and 9 then 'Morning Peak'
     when EXTRACT(HOUR FROM TIMESTAMP_ADD(timestamp, INTERVAL 8 HOUR)) between 17 and 19 then 'Evening Peak'
