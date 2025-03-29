@@ -1,67 +1,73 @@
-version: "3.8"
-volumes:
-  carpark-data:
-    driver: local
-  kestra-data:
-    driver: local
+version: '3'
+x-airflow-common:
+  &airflow-common
+  build:
+    context: .
+    dockerfile: Dockerfile
+  environment:
+    &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+    AIRFLOW_HOME: /opt/airflow
+    GOOGLE_APPLICATION_CREDENTIALS: /opt/airflow/keys/lta-caravailability-a3190b400d81.json
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ./plugins:/opt/airflow/plugins
+    - ./terraform/keys:/opt/airflow/keys
+  depends_on:
+    - postgres
+  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
 
 services:
-  postgres_kestra:
-    image: postgres
-    container_name: kestra-postgres
+  postgres:
+    image: postgres:13
     environment:
-      POSTGRES_USER: kestra
-      POSTGRES_PASSWORD: k3str4
-      POSTGRES_DB: carpark-kestra
-    ports:
-      - "5433:5432"
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
     volumes:
-      - carpark-data:/var/lib/postgresql/data
+      - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kestra -d carpark-kestra"]
-      interval: 10s
-      timeout: 5s
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
       retries: 5
-
-  kestra:
-    image: kestra/kestra:latest
-    container_name: kestra
-    pull_policy: always
-    user: "root"
-    command: server standalone
-    volumes:
-      - kestra-data:/app/storage
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp/kestra-wd:/tmp/kestra-wd
-    environment:
-      KESTRA_CONFIGURATION: |
-        datasources:
-          postgres:
-            url: jdbc:postgresql://postgres_kestra:5432/carpark-kestra
-            driverClassName: org.postgresql.Driver
-            username: kestra
-            password: k3str4
-        kestra:
-          server:
-            basicAuth:
-              enabled: false
-              username: "admin@kestra.io"
-              password: kestra
-          repository:
-            type: postgres
-          storage:
-            type: local
-            local:
-              basePath: "/app/storage"
-          queue:
-            type: postgres
-          tasks:
-            tmpDir:
-              path: /tmp/kestra-wd/tmp
-          url: http://localhost:8082/
+      
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
     ports:
-      - "8082:8080"
-      - "8083:8081"
+      - 8085:8080
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
     depends_on:
-      postgres_kestra:
-        condition: service_healthy
+      - postgres
+      
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      - postgres
+
+  airflow-init:
+    <<: *airflow-common
+    command: version
+    environment:
+      <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
+      _AIRFLOW_WWW_USER_CREATE: 'true'
+      _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
+
+volumes:
+  postgres-db-volume:
