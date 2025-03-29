@@ -11,7 +11,9 @@ ENV/
 # Credentials
 *.env
 *.key
+**/keys/* 
 lta-caravailability-a3190b400d81.json
+orchestration/airflow-dataflow/keys/airflow-dataflow-key.json
 
 # Terraform
 .terraform/
