@@ -28,3 +28,4 @@ orchestration/airflow-dataflow/keys/airflow-dataflow-key.json
 .DS_Store
 .idea/
 .vscode/
+carpark_postgres_data/pg_stat_tmp/
