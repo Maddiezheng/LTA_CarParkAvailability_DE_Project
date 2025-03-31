@@ -1,17 +1,16 @@
-# 文件名：test_kafka.py
 from kafka import KafkaProducer, KafkaConsumer
 import json
 import time
 
 def test_producer():
     try:
-        # 创建生产者
+        # Create producer
         producer = KafkaProducer(
             bootstrap_servers=['34.126.86.205:9093'],
             value_serializer=lambda x: json.dumps(x).encode('utf-8')
         )
         
-        # 发送测试消息
+        # Send test message
         test_message = {'test': 'message', 'timestamp': time.time()}
         producer.send('carpark-availability', test_message)
         producer.flush()
@@ -25,11 +24,11 @@ def test_producer():
 
 def test_consumer(timeout=10):
     try:
-        # 创建消费者
+        # Create consumer
         consumer = KafkaConsumer(
             'carpark-availability',
             bootstrap_servers=['34.126.86.205:9093'],
-            auto_offset_reset='earliest',  # 确保可以接收之前的消息
+            auto_offset_reset='earliest',  # Ensure that it is possible to receive previous messages
             enable_auto_commit=True,
             group_id='test-group',
             value_deserializer=lambda x: json.loads(x.decode('utf-8'))
@@ -50,12 +49,12 @@ def test_consumer(timeout=10):
         return False
 
 if __name__ == "__main__":
-    # 测试Kafka连接
+    # Test Kafka connection
     print("Testing Kafka connection...")
     
-    # 测试生产者
+    # Test Producer
     producer_result = test_producer()
     
     if producer_result:
-        # 测试消费者
+        # Test consumer
         test_consumer()

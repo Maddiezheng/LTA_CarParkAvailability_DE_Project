@@ -1,35 +1,35 @@
 .PHONY: up down terraform-init terraform-apply extract flink kestra
 
-# 启动PostgreSQL和PgAdmin
+# Start PostgreSQL and PgAdmin
 up:
 	docker-compose up -d
 
-# 关闭所有容器
+# Close all containers
 down:
 	docker-compose down
 	cd processing && docker-compose down
 	cd orchestration && docker-compose down
 
-# Terraform初始化
+# Terraform Initialization
 terraform-init:
 	cd terraform && terraform init
 
-# Terraform应用配置
+# Terraform Application Configuration
 terraform-apply:
 	cd terraform && terraform apply
 
-# 启动实时处理组件(Flink和Redpanda)
+# Start Real-time Processing Components (Flink and Redpanda)
 flink:
 	cd processing && docker-compose up -d
 
-# 启动Kestra编排服务
+# Start Kestra orchestration service
 kestra:
 	cd orchestration && docker-compose up -d
 
-# 提交Flink作业
+Submit Flink job
 flink-job:
 	cd processing && docker-compose exec jobmanager bash -c "./bin/flink run -py /opt/src/carpark_job.py --pyFiles /opt/src -d"
 
-# 测试API
+# Test API
 test-api:
 	docker-compose run --rm python python extraction/test_api.py

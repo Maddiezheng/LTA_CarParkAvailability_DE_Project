@@ -13,8 +13,7 @@ output "processed_dataset" {
   description = "BigQuery processed dataset ID"
 }
 
-# 移除了 Dataproc 相关的输出
-# 增加 Dataflow 相关信息
+
 output "dataflow_job_file" {
   value       = google_storage_bucket_object.dataflow_job_file.name
   description = "The Dataflow job file path in GCS"
