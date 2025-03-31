@@ -1,4 +1,13 @@
 # Singapore Carpark Availability Data Engineering Project
+![GCP](https://img.shields.io/badge/Cloud-Google_Cloud_Platform-blue)
+![Terraform](https://img.shields.io/badge/IaC-Terraform-green)
+![GCS](https://img.shields.io/badge/Data_Lake-Google_Cloud_Storage-blue)
+![BigQuery](https://img.shields.io/badge/Data_Warehouse-BigQuery-blue)
+![Kafka](https://img.shields.io/badge/Event_Streaming-Kafka-red)
+![Airflow](https://img.shields.io/badge/Orchestration-Apache_Airflow-yellow)
+![dbt](https://img.shields.io/badge/Transform-dbt-orange)
+![dataflow](https://img.shields.io/badge/Stream_processing-Dataflow-purple)
+
 
 ## Problem Statement
 
