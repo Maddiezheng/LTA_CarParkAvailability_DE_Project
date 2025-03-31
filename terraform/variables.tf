@@ -1,17 +1,18 @@
 variable "credentials" {
     description = "GCP Credentials"
+    # Replace with your credential path
     default = "./keys/lta-caravailability-a3190b400d81.json"
 }
 
 variable "project" {
     description = "GCP Project ID"
-    # 替换成你的项目ID
+    # Replace with your project ID
     default = "lta-caravailability"
 }
 
 variable "region" {
     description = "GCP Region"
-    # 选择新加坡区域
+    # Replace with your location
     default = "asia-southeast1"
 }
 

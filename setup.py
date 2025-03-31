@@ -1,4 +1,3 @@
-# 在项目根目录创建setup.py
 import setuptools
 
 setuptools.setup(

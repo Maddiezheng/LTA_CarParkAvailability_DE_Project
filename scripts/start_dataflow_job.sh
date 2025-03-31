@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# 配置变量
+# Configuration variable
 PROJECT_ID="lta-caravailability"
 REGION="asia-southeast1"
-JOB_NAME="carpark-kafka-to-gcs-$(date +%Y%m%d-%H%M%S)"  # 添加时间戳避免重名
+JOB_NAME="carpark-kafka-to-gcs-$(date +%Y%m%d-%H%M%S)"  # Add a timestamp to avoid duplicate names.
 BUCKET_NAME="lta-carpark"
-KAFKA_SERVER="localhost:9092"  # 本地Kafka地址
+KAFKA_SERVER="localhost:9092"  # Local Kafka address
 
-# 设置认证凭据
+# Set authentication credentials
 export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/terraform/keys/lta-caravailability-a3190b400d81.json"
 
-# 确保已安装Apache Beam
+# Ensure Apache Beam installed 
 pip install apache-beam[gcp] apache-beam[interactive] confluent-kafka
 
-# 启动Dataflow作业
+# Start Dataflow job
 python3 processing/dataflow/kafka_to_gcs_pipeline.py \
   --project=$PROJECT_ID \
   --region=$REGION \

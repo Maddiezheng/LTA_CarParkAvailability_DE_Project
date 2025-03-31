@@ -9,7 +9,7 @@ from apache_beam.io.gcp.gcsio import GcsIO
 from apache_beam.transforms.window import FixedWindows
 import datetime
 
-# 导入正确的Kafka IO模块
+# Import the correct Kafka IO module
 from apache_beam.io.external.kafka import ReadFromKafka
 
 class EnrichCarpark(beam.DoFn):
@@ -74,7 +74,7 @@ def run(argv=None):
     # Run the pipeline
     with beam.Pipeline(options=pipeline_options) as p:
         (p 
-         # 1. Read from Kafka - 使用正确的模块
+         # 1. Read from Kafka 
          | 'ReadFromKafka' >> ReadFromKafka(
              consumer_config={
                  'bootstrap.servers': known_args.kafka_bootstrap_servers,

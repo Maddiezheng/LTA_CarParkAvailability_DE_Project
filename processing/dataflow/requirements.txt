@@ -1,4 +1,4 @@
 apache-beam[gcp]==2.53.0
-# 添加Kafka支持
+# Add Kafka support
 apache-beam[interactive]==2.53.0
 confluent-kafka==2.3.0
