@@ -452,9 +452,11 @@ This dashboard provides comprehensive insights into carpark availability across 
 Note: Due to the impending depletion of GCP account credits and account expiration, the Looker Studio dashboard may become unavailable at any time. Please refer to the video or images below for reference.
 
 Dashboard Link: [HERE](https://lookerstudio.google.com/s/hb3F4vmn3b8)
+
 Dashboard PDF: [HERE](dashboard.looker_studio_exports/Singapore_Carpark_Availability_Dashboard.pdf)
 
 Here is dashboard demo video(please click it):
+
 [![Dashboard Demo](https://img.youtube.com/vi/Io5W081CxM4/0.jpg)](https://youtu.be/Io5W081CxM4)
 
 ## Page 1: Real-time Analysis
