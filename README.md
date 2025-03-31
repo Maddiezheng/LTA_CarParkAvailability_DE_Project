@@ -443,8 +443,6 @@ Utilizes dbt's built-in testing framework to ensure consistency and accuracy aft
 
 ## Insights & Visualizations
 
-# Singapore Carpark Availability Dashboard
-
 ## Overview
 
 This dashboard provides comprehensive insights into carpark availability across Singapore, offering both real-time monitoring and historical trend analysis. The visualization allows urban planners, commuters, and facility managers to make data-driven decisions about parking infrastructure and daily parking choices.
