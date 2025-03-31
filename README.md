@@ -14,7 +14,7 @@ This project is a complete end-to-end data engineering pipeline that extracts, p
 
 Using dbt (data build tool) for data transformation and modeling ensures data quality and consistency. Ultimately, this carefully processed data is transformed into an interactive visualization dashboard using Google Looker Studio, allowing users to query and analyze parking availability in real-time to support travel decisions.
 
-The project uses Apache Airflow for workflow orchestration, implementing a fully automated ETL (Extract, Transform, Load) process to ensure seamless integration of data throughout its lifecycle from collection to analysis.
+The project uses Apache Airflow for workflow orchestration, implementing a fully automated ELT (Extract, Load, Transform) process to ensure seamless integration of data throughout its lifecycle from collection to analysis.
 
 The final output of this project is a comprehensive interactive dashboard that enables users to:
 
@@ -67,6 +67,7 @@ Looker Studio (formerly Google Data Studio) provides rich data visualization cap
 ## Project Architecture
 
 ![Project Architecture](images/architecture_diagram.png)
+(This architecture diagram was created using [Lucidchart](https://www.lucidchart.com/pages).)
 
 The data flow starts from the LTA Carpark API and proceeds through the following steps:
 
@@ -242,6 +243,8 @@ LTA_CarParkAvailability_DE_Project/
   - Implements data quality monitoring and alerts
   - Handles failure retry and recovery mechanisms
 
+![Airflow DAG](images/airflow_dag.png)
+
 **Docker Configuration**
 
 - `docker-compose.yml` - Local Airflow development environment
@@ -252,7 +255,6 @@ LTA_CarParkAvailability_DE_Project/
   - Installs specific dependencies and plugins
   - Configures environment variables and connections
 
-![Airflow DAG](images/airflow_dag.png)
 
 
 ### 7. Dashboard Configuration (Dashboard)
@@ -268,9 +270,9 @@ These components collectively form a complete data engineering pipeline, enablin
 
 ## Data Source Overview
 
-Singapore's Land Transport Authority (LTA) DataMall (https://datamall.lta.gov.sg/content/datamall/en.html) is a comprehensive transportation data platform that provides developers and researchers with a rich set of transportation-related APIs. These APIs offer real-time traffic condition updates (such as public transit arrival times, traffic incidents, etc.) and historical data, providing accurate and timely insights for various applications.
+Singapore's [Land Transport Authority (LTA) DataMall](https://datamall.lta.gov.sg/content/datamall/en.html) is a comprehensive transportation data platform that provides developers and researchers with a rich set of transportation-related APIs. These APIs offer real-time traffic condition updates (such as public transit arrival times, traffic incidents, etc.) and historical data, providing accurate and timely insights for various applications.
 
-This project primarily uses the Carpark Availability API (https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html), which updates every minute and provides real-time available parking space data across Singapore, including HDB public housing, shopping malls, and public car parks.
+This project primarily uses the [Carpark Availability API](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html), which updates every minute and provides real-time available parking space data across Singapore, including HDB public housing, shopping malls, and public car parks.
 
 To use these APIs, you can register for a free API key through the [official channel](https://datamall.lta.gov.sg/content/datamall/en/request-for-api.html). It's worth noting that according to LTA's official notice, all HTTP API endpoints will cease service on May 31, 2025, which increases the timeliness and value of this project.
 
@@ -449,9 +451,10 @@ This dashboard provides comprehensive insights into carpark availability across 
 
 Note: Due to the impending depletion of GCP account credits and account expiration, the Looker Studio dashboard may become unavailable at any time. Please refer to the video or images below for reference.
 
-Dashboard Link: HERE(https://lookerstudio.google.com/s/hb3F4vmn3b8)
-Dashboard PDF: HERE(dashboard.looker_studio_exports/Singapore_Carpark_Availability_Dashboard.pdf)
+Dashboard Link: [HERE](https://lookerstudio.google.com/s/hb3F4vmn3b8)
+Dashboard PDF: [HERE](dashboard.looker_studio_exports/Singapore_Carpark_Availability_Dashboard.pdf)
 
+Here is dashboard demo video(please click it):
 [![Dashboard Demo](https://img.youtube.com/vi/Io5W081CxM4/0.jpg)](https://youtu.be/Io5W081CxM4)
 
 ## Page 1: Real-time Analysis
@@ -523,6 +526,8 @@ A comprehensive heatmap displaying parking availability patterns across differen
 This ranking identifies carparks with consistently low availability, helping users avoid potentially full facilities and assisting urban planners in identifying infrastructure improvement priorities.
 
 ![Crowded Carparks](images/crowded_carparks.gif)
+
+(The GIFs were generated using [CloudConvert](https://cloudconvert.com/mov-to-gif).)
 
 ## Steps to Reproduce
 
